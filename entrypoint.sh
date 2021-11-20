@@ -63,6 +63,32 @@ function local_backup(){
   tail -F "$LOGFILE" /app/log/cron.log
 }
 
+function remote_backup(){
+
+  if [ -z "$REMOTE_METHOD" ] || [ -z "$BACKUP_HOST" ] || [ -z "$BACKUP_USER" ] || [ -z "$BACKUP_USER_PASSWORD" ]; then
+  echo "Missing some parameters, please check your config and try again"
+  fi
+
+  if [[ "$REMOTE_METHOD" == "sftp" ]]; then
+
+    PASSWORD=$(echo "$BACKUP_USER_PASSWORD" | rclone obscure -)
+    export RCLONE_SFTP_HOST=$BACKUP_HOST
+    export RCLONE_SFTP_USER=$BACKUP_USER
+    export RCLONE_SFTP_PASS=$PASSWORD
+    rclone config create vaultwarden_sftp sftp --non-interactive
+    rclone mount vaultwarden_sftp:/vaultwarden/ /mnt/remote
+    local_backup
+    cp "$FINAL_BACKUP_ATTACHMENT".tgz /mnt/remote
+    cp "$FINAL_BACKUP_FILE" /mnt/remote
+
+  fi  
+
+}
+
 if [[ ${BACKUP_METHOD} == "local" ]]; then
   local_backup "$@"
+fi
+
+if [[ ${BACKUP_METHOD} == "remote" ]]; then
+  remote_backup
 fi

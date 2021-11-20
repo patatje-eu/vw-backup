@@ -36,7 +36,7 @@ services:
     restart: on-failure
 
   bw_backup:
-    image: ghcr.io/patatje-eu/vw-backup:main
+    image: patatjeeu:latest
     container_name: bw_backup
     restart: on-failure
     init: true
@@ -54,11 +54,15 @@ services:
         # - BACKUP_FILE=/backup_folder/db_backup/backup.sqlite3
       - BACKUP_FILE=/data/db_backup/backup.sqlite3
       - CRON_TIME=* * * * *
-      - TIMESTAMP=false
+      - TIMESTAMP=true
       - UID=0
       - GID=0
       - BACKUP_FILE_PERMISSIONS=700
-      - BACKUP_METHOD="local"
+      - BACKUP_METHOD=local
+      - REMOTE_METHOD=sftp
+      - BACKUP_USER=test
+      - BACKUP_USER_PASSWORD=test
+      - BACKUP_HOST=test
 
 volumes:
   bitwarden:

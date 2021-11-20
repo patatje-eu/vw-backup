@@ -10,7 +10,15 @@ RUN apk add --no-cache \
     busybox-suid \
     su-exec \
     tzdata \
-    bash
+    bash \
+    curl
+
+# Install rclone for remote support
+RUN curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip
+RUN unzip rclone-current-linux-amd64.zip
+RUN cp rclone-*-linux-amd64/rclone /usr/bin/
+RUN chown root:root /usr/bin/rclone
+RUN chmod 755 /usr/bin/rclone
 
 ENV DB_FILE /data/db.sqlite3
 ENV BACKUP_FILE /data/db_backup/backup.sqlite3
@@ -24,7 +32,7 @@ ENV GID 100
 ENV CRONFILE /etc/crontabs/root
 ENV LOGFILE /app/log/backup.log
 ENV DELETE_AFTER 0
-ENV BACKUP_METHOD="local"
+ENV BACKUP_METHOD local
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY backup.sh /app/
