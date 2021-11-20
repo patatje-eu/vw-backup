@@ -32,7 +32,7 @@ COPY backup.sh /app/
 RUN mkdir /app/log/ \
     && chown -R app:app /app/ \
     && chmod -R 777 /app/ \
-    && chmod +x /usr/local/bin/entrypoint.sh 
+    && chmod +x /entrypoint.sh 
 #    && echo "\$CRON_TIME \$BACKUP_CMD >> \$LOGFILE 2>&1" | crontab -
 
 ENTRYPOINT ["/entrypoint.sh"]
