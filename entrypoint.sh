@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # vim: tabstop=2 shiftwidth=2 expandtab
 
 #set -x
@@ -9,7 +9,7 @@ if [ "$#" -ne 0 ] && command -v "$@" > /dev/null 2>&1; then
   exit 0
 fi
 
-function local_backup(){
+local_backup(){
   BACKUP_CMD="/sbin/su-exec ${UID}:${GID} /app/backup.sh"
   echo "Running $(basename "$0") as $(id)"
 
