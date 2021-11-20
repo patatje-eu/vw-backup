@@ -26,7 +26,7 @@ ENV LOGFILE /app/log/backup.log
 ENV DELETE_AFTER 0
 ENV BACKUP_METHOD="local"
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 COPY backup.sh /app/
 
 RUN mkdir /app/log/ \
@@ -35,4 +35,4 @@ RUN mkdir /app/log/ \
     && chmod +x /usr/local/bin/entrypoint.sh 
 #    && echo "\$CRON_TIME \$BACKUP_CMD >> \$LOGFILE 2>&1" | crontab -
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
