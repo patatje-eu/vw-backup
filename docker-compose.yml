@@ -36,7 +36,7 @@ services:
     restart: on-failure
 
   bw_backup:
-    image: bruceforce/bw_backup
+    image: ghcr.io/patatje-eu/vw-backup:main
     container_name: bw_backup
     restart: on-failure
     init: true
