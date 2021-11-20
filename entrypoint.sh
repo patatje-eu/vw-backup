@@ -63,6 +63,6 @@ local_backup(){
   tail -F "$LOGFILE" /app/log/cron.log
 }
 
-if [[ ${BACKUP_METHOD} == "local" ]]; then
+if [ "${BACKUP_METHOD}" = "local" ]; then
   local_backup "$@"
 fi
