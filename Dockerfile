@@ -3,9 +3,9 @@ FROM ${ARCH}alpine:latest
 
 RUN addgroup -S app && adduser -S -G app app
 
-RUN apk update \
-    apk upgrade \
-    apk add --no-cache \
+RUN apk update
+RUN apk upgrade
+RUN apk add --no-cache \
     sqlite \
     busybox-suid \
     su-exec \
