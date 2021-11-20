@@ -3,11 +3,14 @@ FROM ${ARCH}alpine:latest
 
 RUN addgroup -S app && adduser -S -G app app
 
-RUN apk add --no-cache \
+RUN apk update \
+    apk upgrade \
+    apk add --no-cache \
     sqlite \
     busybox-suid \
     su-exec \
-    tzdata
+    tzdata \
+    bash
 
 ENV DB_FILE /data/db.sqlite3
 ENV BACKUP_FILE /data/db_backup/backup.sqlite3
@@ -21,6 +24,7 @@ ENV GID 100
 ENV CRONFILE /etc/crontabs/root
 ENV LOGFILE /app/log/backup.log
 ENV DELETE_AFTER 0
+ENV BACKUP_METHOD="local"
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY backup.sh /app/
