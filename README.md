@@ -3,7 +3,7 @@
 Docker Containers for [Vaultwarden](https://github.com/dani-garcia/vaultwarden) Backup.
 Based on [Bitwarden_rs backup](https://gitlab.com/1O/bitwarden_rs-backup)
 
-**Not production ready! This is a work in progress. I'm adding support to copy the backup method to remote hosts. For now only SFTP is supported, planning on adding WebDAV and S3 support in the near future. The variable names will probably change around, so if it breaks please verify your environment variables against the [Environment variables section](#environment-variables) if it breaks.**
+**This is a work in progress. I'm adding support to copy the backup method to remote hosts. For now only SFTP is supported, planning on adding WebDAV and S3 support in the near future.**
 
 ## Usage
 
@@ -78,9 +78,9 @@ docker run --rm --volumes-from=bitwarden -e UID=0 -e BACKUP_FILE=/myBackup/backu
 | ATTACHMENT_DIR          | Path to the Bitwarden attachement folder *inside* the container [^3]                        |
 | BACKUP_METHOD           | Defaults to local (inside the data dir of bitwarden). Set to remote to copy backup remotely |
 | REMOTE_METHOD           | Specify the method to backup remotely (currently only sftp support)                         |
-| BACKUP_USER             | Username of the remote server                                                               |
-| BACKUP_USER_PASSWORD    | Password of the remote server                                                               |
-| BACKUP_HOST             | Hostname / IP of the remote server                                                          |
+| SFTP_USER               | Username of the remote sftp server                                                          |
+| SFTP_PASSWORD           | Password of the remote sftp server                                                          |
+| SFTP_HOST               | Hostname / IP of the remote sftp server                                                     |
 
 [^1]: The permissions should at least be 700 since the backup folder itself gets the same permissions and with 600 it would not be accessible.
 [^2]: see <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones> for more information
