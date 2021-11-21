@@ -37,6 +37,12 @@ else
   echo "$(date "+%F %T") - Attachment backup unsuccessfull"
 fi
 
+# Run copy to remote if enabled
+if [[ ${BACKUP_METHOD} == "remote" ]]; then
+  BACKUP_DIR=$(dirname "$BACKUP_FILE")
+  rclone sync "$BACKUP_DIR" vaultwarden_sftp:vaultwarden
+fi
+
 # Delete backup files after $DELETE_AFTER days.
 if [ -n "$DELETE_AFTER" ] && [ "$DELETE_AFTER" -gt 0 ]; then
   find "$(dirname "$BACKUP_FILE")" -name "$(basename "$BACKUP_FILE")*" -type f -mtime +"$DELETE_AFTER" -exec rm -f {} \; -exec echo "Deleted {} after $DELETE_AFTER days" \;

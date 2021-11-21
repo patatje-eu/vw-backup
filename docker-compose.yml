@@ -59,10 +59,10 @@ services:
       - GID=0
       - BACKUP_FILE_PERMISSIONS=700
       - BACKUP_METHOD=local
-      - REMOTE_METHOD=sftp
-      - BACKUP_USER=test
-      - BACKUP_USER_PASSWORD=test
-      - BACKUP_HOST=test
+      - REMOTE_METHOD=
+      - BACKUP_USER=
+      - BACKUP_USER_PASSWORD=
+      - BACKUP_HOST=
 
 volumes:
   bitwarden:

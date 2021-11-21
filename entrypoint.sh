@@ -72,17 +72,21 @@ function remote_backup(){
   if [[ "$REMOTE_METHOD" == "sftp" ]]; then
 
     PASSWORD=$(echo "$BACKUP_USER_PASSWORD" | rclone obscure -)
-    export RCLONE_SFTP_HOST=$BACKUP_HOST
-    export RCLONE_SFTP_USER=$BACKUP_USER
-    export RCLONE_SFTP_PASS=$PASSWORD
-    rclone config create vaultwarden_sftp sftp --non-interactive
-    rclone mount vaultwarden_sftp:/vaultwarden/ /mnt/remote
+    # Create rclone config dir if it doesn't exist
+    if [ -d ~/.config/rclone ]; then
+      mkdir -p ~/.config/rclone
+    fi
+    # Remove rclone config file if it exits
+
+    {
+      echo '[vaultwarden_sftp]'
+      echo 'type = sftp'
+      echo "host = $BACKUP_HOST"
+      echo "user = $BACKUP_USER"
+      echo "pass = $PASSWORD"
+    } >> ~/.config/rclone/rclone.conf
     local_backup
-    cp "$FINAL_BACKUP_ATTACHMENT".tgz /mnt/remote
-    cp "$FINAL_BACKUP_FILE" /mnt/remote
-
   fi  
-
 }
 
 if [[ ${BACKUP_METHOD} == "local" ]]; then
