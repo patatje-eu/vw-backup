@@ -62,9 +62,9 @@ services:
       - BACKUP_FILE_PERMISSIONS=700
       # - BACKUP_METHOD=local
       # - REMOTE_METHOD=
-      # - BACKUP_USER=
-      # - BACKUP_USER_PASSWORD=
-      # - BACKUP_HOST=
+      # - SFTP_USER=
+      # - SFTP_PASSWORD=
+      # - SFTP_HOST=
 
 volumes:
   bitwarden:
