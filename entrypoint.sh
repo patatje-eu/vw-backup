@@ -65,25 +65,30 @@ function local_backup(){
 
 function remote_backup(){
 
-  if [ -z "$REMOTE_METHOD" ] || [ -z "$BACKUP_HOST" ] || [ -z "$BACKUP_USER" ] || [ -z "$BACKUP_USER_PASSWORD" ]; then
-  echo "Missing some parameters, please check your config and try again"
-  fi
-
   if [[ "$REMOTE_METHOD" == "sftp" ]]; then
+    if [ -z "$SFTP_HOST" ] || [ -z "$SFTP_USER" ] || [ -z "$SFTP_PASSWORD" ]; then
+      echo "Missing some parameters, please check your config and try again"
+      exit 1
+    fi
+
     echo "Configuring rclone sftp for remote backup support"
-    PASSWORD=$(echo "$BACKUP_USER_PASSWORD" | rclone obscure -)
+
+    # Run password through rclone obscure
+    PASSWORD=$(echo "$SFTP_PASSWORD" | rclone obscure -)
+
     # Create rclone config dir if it doesn't exist
     if [ -d ~/.config/rclone ]; then
       mkdir -p ~/.config/rclone
     fi
+
     # Create rclone config file
     {
       echo '[vaultwarden_sftp]'
       echo 'type = sftp'
-      echo "host = $BACKUP_HOST"
-      echo "user = $BACKUP_USER"
+      echo "host = $SFTP_HOST"
+      echo "user = $SFTP_USER"
       echo "pass = $PASSWORD"
-    } >> ~/.config/rclone/rclone.conf
+    } > ~/.config/rclone/rclone.conf
 
     # Run local backup since we use that to create backup db
     local_backup

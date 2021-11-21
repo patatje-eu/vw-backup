@@ -36,7 +36,8 @@ services:
     restart: on-failure
 
   vw_backup:
-    image: ghcr.io/patatje-eu/vw-backup:main
+    # image: ghcr.io/patatje-eu/vw-backup:main
+    image: patatjeeu:latest
     container_name: vw_backup
     restart: on-failure
     init: true
@@ -62,9 +63,9 @@ services:
       - BACKUP_FILE_PERMISSIONS=700
       # - BACKUP_METHOD=local
       # - REMOTE_METHOD=
-      # - BACKUP_USER=
-      # - BACKUP_USER_PASSWORD=
-      # - BACKUP_HOST=
+      # - SFTP_USER=
+      # - SFTP_PASSWORD=
+      # - SFTP_HOST=
 
 volumes:
   bitwarden:
