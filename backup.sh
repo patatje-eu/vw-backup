@@ -39,8 +39,10 @@ fi
 
 # Run copy to remote if enabled
 if [[ ${BACKUP_METHOD} == "remote" ]]; then
-  BACKUP_DIR=$(dirname "$BACKUP_FILE")
-  rclone sync "$BACKUP_DIR" vaultwarden_sftp:vaultwarden
+  if [[ "$REMOTE_METHOD" == "sftp" ]]; then
+    BACKUP_DIR=$(dirname "$BACKUP_FILE")
+    rclone sync "$BACKUP_DIR" vaultwarden_sftp:vaultwarden
+  fi
 fi
 
 # Delete backup files after $DELETE_AFTER days.

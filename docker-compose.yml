@@ -35,9 +35,9 @@ services:
       - bitwarden:/data/
     restart: on-failure
 
-  bw_backup:
-    image: patatjeeu:latest
-    container_name: bw_backup
+  vw_backup:
+    image: ghcr.io/patatje-eu/vw-backup:main
+    container_name: vw_backup
     restart: on-failure
     init: true
     depends_on:
@@ -48,6 +48,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
         # uncomment this if you want your backup to be written to ./backup/ folder"
         # - ./backup:/backup_folder/
+    env_file:
+      - .env
     environment:
       - DB_FILE=/data/db.sqlite3
         # uncomment this if you want your backup to be written to ./backup/ folder"
@@ -58,11 +60,11 @@ services:
       - UID=0
       - GID=0
       - BACKUP_FILE_PERMISSIONS=700
-      - BACKUP_METHOD=local
-      - REMOTE_METHOD=
-      - BACKUP_USER=
-      - BACKUP_USER_PASSWORD=
-      - BACKUP_HOST=
+      # - BACKUP_METHOD=local
+      # - REMOTE_METHOD=
+      # - BACKUP_USER=
+      # - BACKUP_USER_PASSWORD=
+      # - BACKUP_HOST=
 
 volumes:
   bitwarden:
