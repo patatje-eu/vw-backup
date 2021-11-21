@@ -1,13 +1,13 @@
-# Vaultwarden backup Backup
+# Vaultwarden Backup
 
 Docker Containers for [Vaultwarden](https://github.com/dani-garcia/vaultwarden) Backup.
 Based on [Bitwarden_rs backup](https://gitlab.com/1O/bitwarden_rs-backup)
 
-**This is a work in progress. I'm adding support to copy the backup method to remote hosts. For now only SFTP is supported, planning on adding WebDAV and S3 support in the near future.**
+**Not production ready! This is a work in progress. I'm adding support to copy the backup method to remote hosts. For now only SFTP is supported, planning on adding WebDAV and S3 support in the near future. The variable names will probably change around, so if it breaks please verify your environment variables against the [Environment variables section](#environment-variables) if it breaks.**
 
 ## Usage
 
-Make sure that your **bitwarden_rs container is named `bitwarden`** otherwise 
+Make sure that your **bitwarden_rs container is named `bitwarden`** otherwise
 you have to replace the container name in the `--volumes-from` section of the `docker run` call.
 
 If you want to automatically upload the backup files to a remote, you can specify the BACKUP_METHOD environment variable, see [Environment variables section](#environment-variables) for more information
