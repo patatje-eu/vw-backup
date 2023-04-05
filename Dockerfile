@@ -14,9 +14,9 @@ RUN apk add --no-cache \
     curl
 
 # Install rclone for remote support
-RUN curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip
-RUN unzip rclone-current-linux-amd64.zip
-RUN cp rclone-*-linux-amd64/rclone /usr/bin/
+RUN curl -O https://downloads.rclone.org/rclone-current-linux-${ARCH}.zip
+RUN unzip rclone-current-linux-${ARCH}.zip
+RUN cp rclone-*-linux-${ARCH}/rclone /usr/bin/
 RUN chown root:root /usr/bin/rclone
 RUN chmod 755 /usr/bin/rclone
 RUN rm -rf rclone*
