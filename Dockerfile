@@ -14,14 +14,12 @@ RUN apk add --no-cache \
     curl
 
 # Install rclone for remote support
-RUN architecture="" \
-    case $(uname -m) in \
-        x86_64) architecture="amd64" ;; \
-        arm)    apk --print-arch | grep -q "arm64" && architecture="arm64" || architecture="arm" ;; \
-    esac
-RUN curl -O https://downloads.rclone.org/rclone-current-linux-${architecture}.zip
-RUN unzip rclone-current-linux-${architecture}.zip
-RUN cp rclone-*-linux-${architecture}/rclone /usr/bin/
+COPY setarch.sh /usr/bin/setarch
+RUN chmod +x /usr/bin/setarch
+RUN setarch
+RUN curl -O https://downloads.rclone.org/rclone-current-linux-$(cat /tmp/arch).zip
+RUN unzip rclone-current-linux-$(cat /tmp/arch).zip
+RUN cp rclone-*-linux-$(cat /tmp/arch)/rclone /usr/bin/
 RUN chown root:root /usr/bin/rclone
 RUN chmod 755 /usr/bin/rclone
 RUN rm -rf rclone*
