@@ -88,6 +88,7 @@ function remote_backup(){
       echo "host = $SFTP_HOST"
       echo "user = $SFTP_USER"
       echo "pass = $PASSWORD"
+      echo "port = $PORT"
       echo "key_file = $KEY_FILE"
     } > ~/.config/rclone/rclone.conf
 
