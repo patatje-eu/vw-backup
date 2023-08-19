@@ -66,7 +66,7 @@ function local_backup(){
 function remote_backup(){
 
   if [[ "$REMOTE_METHOD" == "sftp" ]]; then
-    if [ -z "$SFTP_HOST" ] || [ -z "$SFTP_USER" ] || [[ -z "$SFTP_PASSWORD" || -z "$SFTP_KEY_FILE" ]]; then
+    if [ -z "$SFTP_HOST" ] || [ -z "$SFTP_USER" ] || [[ -z "$SFTP_PASSWORD" && -z "$SFTP_KEY_FILE" ]]; then
       echo "Missing some parameters, please check your config and try again"
       exit 1
     fi
